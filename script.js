@@ -5,6 +5,8 @@ const accent = document.querySelector('.accent');
 const contentPanel = journeyStage ? journeyStage.querySelector('.content-panel') : null;
 const pillars = contentPanel ? contentPanel.querySelectorAll('.pillar') : [];
 const morphLayers = journeyStage ? journeyStage.querySelectorAll('.morph-layer') : [];
+const floatingPanels = journeyStage ? journeyStage.querySelectorAll('.floating-panel') : [];
+const orbs = journeyStage ? journeyStage.querySelectorAll('.orb') : [];
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -67,6 +69,14 @@ const applySceneStyles = () => {
       pillar.style.transform = 'none';
       pillar.style.opacity = '1';
     });
+    floatingPanels.forEach((panel) => {
+      panel.style.transform = 'none';
+      panel.style.opacity = '1';
+    });
+    orbs.forEach((orb) => {
+      orb.style.transform = 'none';
+      orb.style.opacity = '1';
+    });
     return;
   }
 
@@ -106,6 +116,19 @@ const applySceneStyles = () => {
 
     layer.style.borderRadius = `${frame.radius[0]}% ${frame.radius[1]}% ${frame.radius[2]}% ${frame.radius[3]}% / ${frame.radius[4]}% ${frame.radius[5]}% ${frame.radius[6]}% ${frame.radius[7]}%`;
     layer.style.transform = `translate3d(${frame.x.toFixed(2)}%, ${frame.y.toFixed(2)}%, 0) rotate(${frame.rotate.toFixed(2)}deg)`;
+  });
+
+  floatingPanels.forEach((panel, index) => {
+    const panelEase = clamp((progress - (0.28 + index * 0.08)) / 0.58, 0, 1);
+    panel.style.transform = `translate3d(0, ${lerp(18, 0, panelEase).toFixed(2)}px, 0)`;
+    panel.style.opacity = lerp(0.2, 1, panelEase).toFixed(3);
+  });
+
+  orbs.forEach((orb, index) => {
+    const orbEase = clamp((progress - 0.14) / 0.72, 0, 1);
+    const drift = index === 0 ? 1 : -1;
+    orb.style.transform = `translate3d(${lerp(0, drift * 10, orbEase).toFixed(2)}px, ${lerp(20, 0, orbEase).toFixed(2)}px, 0) scale(${lerp(0.9, 1, orbEase).toFixed(3)})`;
+    orb.style.opacity = lerp(0.2, 0.95, orbEase).toFixed(3);
   });
 };
 
