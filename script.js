@@ -1,4 +1,5 @@
 const journeyStage = document.getElementById('wellness-panel');
+const journeyScene = document.querySelector('.scene');
 const heroCard = document.querySelector('.hero-card');
 const accent = document.querySelector('.accent');
 const contentPanel = journeyStage ? journeyStage.querySelector('.content-panel') : null;
@@ -10,15 +11,16 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const lerp = (start, end, amount) => start + (end - start) * amount;
 
 const getSceneProgress = () => {
-  if (!journeyStage) {
+  if (!journeyScene) {
     return 0;
   }
 
-  const rect = journeyStage.getBoundingClientRect();
+  const rect = journeyScene.getBoundingClientRect();
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-  const start = viewportHeight * 0.92;
-  const end = -rect.height * 0.25;
-  return clamp((start - rect.top) / (start - end), 0, 1);
+  const totalScroll = Math.max(rect.height - viewportHeight, 1);
+  const sceneScroll = clamp(-rect.top, 0, totalScroll);
+
+  return sceneScroll / totalScroll;
 };
 
 const getMorphFrame = (progress, offset = 0) => {
