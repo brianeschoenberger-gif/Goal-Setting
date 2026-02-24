@@ -1,35 +1,24 @@
-const revealTargets = document.querySelectorAll('.reveal-target');
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.2,
-    rootMargin: '0px 0px -8% 0px',
-  },
-);
-
-revealTargets.forEach((element) => observer.observe(element));
-
 const journeyStage = document.getElementById('wellness-panel');
+const heroCard = document.querySelector('.hero-card');
+const accent = document.querySelector('.accent');
+const contentPanel = journeyStage ? journeyStage.querySelector('.content-panel') : null;
+const pillars = contentPanel ? contentPanel.querySelectorAll('.pillar') : [];
 const morphLayers = journeyStage ? journeyStage.querySelectorAll('.morph-layer') : [];
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const lerp = (start, end, amount) => start + (end - start) * amount;
 
-const getScrollProgress = (element) => {
-  const rect = element.getBoundingClientRect();
+const getSceneProgress = () => {
+  if (!journeyStage) {
+    return 0;
+  }
+
+  const rect = journeyStage.getBoundingClientRect();
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-  const entryPoint = viewportHeight * 0.88;
-  const travel = viewportHeight * 1.15 + rect.height;
-  return clamp((entryPoint - rect.top) / travel, 0, 1);
+  const start = viewportHeight * 0.92;
+  const end = -rect.height * 0.25;
+  return clamp((start - rect.top) / (start - end), 0, 1);
 };
 
 const getMorphFrame = (progress, offset = 0) => {
@@ -51,12 +40,64 @@ const getMorphFrame = (progress, offset = 0) => {
   };
 };
 
-const applyMorphStyles = () => {
-  if (!journeyStage || morphLayers.length === 0 || prefersReducedMotion.matches) {
+const applySceneStyles = () => {
+  const progress = getSceneProgress();
+
+  if (prefersReducedMotion.matches) {
+    if (heroCard) {
+      heroCard.style.transform = 'none';
+      heroCard.style.opacity = '1';
+    }
+    if (accent) {
+      accent.style.transform = 'none';
+      accent.style.opacity = '1';
+    }
+    if (journeyStage) {
+      journeyStage.style.transform = 'none';
+      journeyStage.style.opacity = '1';
+      journeyStage.style.filter = 'none';
+    }
+    if (contentPanel) {
+      contentPanel.style.transform = 'none';
+      contentPanel.style.opacity = '1';
+    }
+    pillars.forEach((pillar) => {
+      pillar.style.transform = 'none';
+      pillar.style.opacity = '1';
+    });
     return;
   }
 
-  const progress = getScrollProgress(journeyStage);
+  const heroEase = clamp(progress * 1.15, 0, 1);
+  const stageEase = clamp((progress - 0.06) / 0.88, 0, 1);
+
+  if (heroCard) {
+    heroCard.style.transform = `translate3d(0, ${lerp(0, -16, heroEase).toFixed(2)}px, 0)`;
+    heroCard.style.opacity = lerp(1, 0.72, heroEase).toFixed(3);
+  }
+
+  if (accent) {
+    accent.style.transform = `translate3d(0, ${lerp(0, -10, heroEase).toFixed(2)}px, 0) scale(${lerp(1, 0.96, heroEase).toFixed(3)})`;
+    accent.style.opacity = lerp(1, 0.74, heroEase).toFixed(3);
+  }
+
+  if (journeyStage) {
+    journeyStage.style.transform = `translate3d(0, ${lerp(76, 0, stageEase).toFixed(2)}px, 0) scale(${lerp(0.92, 1, stageEase).toFixed(3)})`;
+    journeyStage.style.opacity = lerp(0.08, 1, stageEase).toFixed(3);
+    journeyStage.style.filter = `blur(${lerp(5, 0, stageEase).toFixed(2)}px)`;
+  }
+
+  if (contentPanel) {
+    const panelEase = clamp((progress - 0.16) / 0.74, 0, 1);
+    contentPanel.style.transform = `translate3d(0, ${lerp(30, 0, panelEase).toFixed(2)}px, 0)`;
+    contentPanel.style.opacity = lerp(0.35, 1, panelEase).toFixed(3);
+  }
+
+  pillars.forEach((pillar, index) => {
+    const pillarEase = clamp((progress - (0.2 + index * 0.08)) / 0.62, 0, 1);
+    pillar.style.transform = `translate3d(0, ${lerp(18, 0, pillarEase).toFixed(2)}px, 0)`;
+    pillar.style.opacity = lerp(0.45, 1, pillarEase).toFixed(3);
+  });
 
   morphLayers.forEach((layer, index) => {
     const frame = getMorphFrame(progress, index * 0.12);
@@ -68,20 +109,22 @@ const applyMorphStyles = () => {
 
 let ticking = false;
 
-const requestMorphUpdate = () => {
+const requestSceneUpdate = () => {
   if (ticking) {
     return;
   }
 
   ticking = true;
   window.requestAnimationFrame(() => {
-    applyMorphStyles();
+    applySceneStyles();
     ticking = false;
   });
 };
 
-window.addEventListener('scroll', requestMorphUpdate, { passive: true });
-window.addEventListener('resize', requestMorphUpdate);
-window.addEventListener('load', requestMorphUpdate);
+window.addEventListener('scroll', requestSceneUpdate, { passive: true });
+window.addEventListener('resize', requestSceneUpdate);
+window.addEventListener('load', requestSceneUpdate);
 
-applyMorphStyles();
+prefersReducedMotion.addEventListener('change', requestSceneUpdate);
+
+applySceneStyles();
