@@ -1,0 +1,65 @@
+:root {
+  --ink: #3f3f43;
+  --cream: #fbf9f6;
+  --paper: #ffffff;
+  --gold: #d9b47f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  background: radial-gradient(circle at 100% 100%, #f2ebdf 0%, var(--cream) 20%, var(--paper) 45%);
+  color: var(--ink);
+}
+
+.hero {
+  width: min(100%, 980px);
+  padding: clamp(2rem, 8vw, 5.5rem) clamp(1.4rem, 7vw, 4rem) 2.5rem;
+}
+
+.hero-card {
+  max-width: 760px;
+}
+
+.headline-primary {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.5rem, 9vw, 5.35rem);
+  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+}
+
+.headline-script {
+  margin: 0.2em 0 0;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.7rem, 10vw, 5.7rem);
+  line-height: 0.95;
+}
+
+.accent {
+  width: min(100%, 640px);
+  height: auto;
+  margin-top: 0.2rem;
+}
+
+.accent path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.tagline {
+  margin: 0.45rem 0 0;
+  font-family: "Inter", "Avenir Next", system-ui, sans-serif;
+  font-size: clamp(1.2rem, 4.3vw, 3rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
