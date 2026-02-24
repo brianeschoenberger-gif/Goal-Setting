@@ -317,19 +317,25 @@ main {
   gap: 0.35rem;
 }
 
-.pillar:nth-child(1) {
-  transform: translate3d(0, var(--pillar1-y), 0);
+.pillar--clarity {
+  transform: translate3d(0, var(--pillar1-y), 0) scale(var(--pillar1-scale, 1));
   opacity: var(--pillar1-o);
+  background: rgba(255, 255, 255, calc(0.04 + (var(--pillar1-spotlight, 0) * 0.22)));
+  box-shadow: inset 0 0 0 calc(var(--pillar1-spotlight, 0) * 1px) rgba(255, 255, 255, 0.85);
 }
 
-.pillar:nth-child(2) {
-  transform: translate3d(0, var(--pillar2-y), 0);
+.pillar--balance {
+  transform: translate3d(0, var(--pillar2-y), 0) scale(var(--pillar2-scale, 1));
   opacity: var(--pillar2-o);
+  background: rgba(255, 255, 255, calc(0.04 + (var(--pillar2-spotlight, 0) * 0.22)));
+  box-shadow: inset 0 0 0 calc(var(--pillar2-spotlight, 0) * 1px) rgba(255, 255, 255, 0.85);
 }
 
-.pillar:nth-child(3) {
-  transform: translate3d(0, var(--pillar3-y), 0);
+.pillar--growth {
+  transform: translate3d(0, var(--pillar3-y), 0) scale(var(--pillar3-scale, 1));
   opacity: var(--pillar3-o);
+  background: rgba(255, 255, 255, calc(0.04 + (var(--pillar3-spotlight, 0) * 0.22)));
+  box-shadow: inset 0 0 0 calc(var(--pillar3-spotlight, 0) * 1px) rgba(255, 255, 255, 0.85);
 }
 
 .pillar + .pillar {
