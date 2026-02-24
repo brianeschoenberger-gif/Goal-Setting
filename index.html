@@ -7,12 +7,60 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&family=Inter:wght@400;500;700&display=swap"
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&family=Inter:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <main>
+      <section class="hero section-shell" aria-label="Introductory headline">
+        <div class="hero-card">
+          <h1 class="headline-primary">Define Your Goals,</h1>
+          <p class="headline-script">Design Your Wellness</p>
+          <svg
+            class="accent"
+            viewBox="0 0 700 120"
+            role="img"
+            aria-label="Decorative hand-drawn underline"
+          >
+            <path d="M10 70C170 10 330 20 500 66" />
+            <path d="M250 95C410 35 560 35 690 70" />
+          </svg>
+          <p class="tagline">Create. Commit. Thrive.</p>
+        </div>
+      </section>
+
+      <section class="journey section-shell" aria-label="Core wellness pillars">
+        <div class="journey-stage reveal-target" id="wellness-panel">
+          <div class="morph-layer morph-layer--a" aria-hidden="true"></div>
+          <div class="morph-layer morph-layer--b" aria-hidden="true"></div>
+
+          <div class="content-panel">
+            <article class="pillar">
+              <div class="pillar-icon" aria-hidden="true">🎯</div>
+              <h2>Clarity</h2>
+              <p>Set Intentions</p>
+            </article>
+
+            <article class="pillar">
+              <div class="pillar-icon" aria-hidden="true">🧘</div>
+              <h2>Balance</h2>
+              <p>Mind &amp; Body</p>
+            </article>
+
+            <article class="pillar">
+              <div class="pillar-icon" aria-hidden="true">🌿</div>
+              <h2>Growth</h2>
+              <p>Track Progress</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
     <main class="hero">
       <section class="hero-card" aria-label="Introductory headline">
         <h1 class="headline-primary">Define Your Goals,</h1>
