@@ -81,6 +81,18 @@ main {
   padding-bottom: clamp(5rem, 12vw, 10rem);
 }
 
+.scene {
+  min-height: 300vh;
+}
+
+.scene-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  align-content: center;
+}
+
 .journey-stage {
   position: relative;
   min-height: clamp(360px, 42vw, 560px);
