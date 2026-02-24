@@ -15,6 +15,8 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: "Inter", "Avenir Next", system-ui, sans-serif;
+  display: grid;
+  place-items: start center;
   background: radial-gradient(circle at 100% 100%, #f2ebdf 0%, var(--cream) 20%, var(--paper) 45%);
   color: var(--ink);
 }
@@ -32,6 +34,9 @@ main {
 .hero {
   padding-top: clamp(2rem, 8vw, 5.5rem);
   padding-bottom: clamp(2rem, 6vw, 4rem);
+.hero {
+  width: min(100%, 980px);
+  padding: clamp(2rem, 8vw, 5.5rem) clamp(1.4rem, 7vw, 4rem) 2.5rem;
 }
 
 .hero-card {
@@ -69,6 +74,7 @@ main {
 
 .tagline {
   margin: 0.45rem 0 0;
+  font-family: "Inter", "Avenir Next", system-ui, sans-serif;
   font-size: clamp(1.2rem, 4.3vw, 3rem);
   font-weight: 500;
   letter-spacing: 0.01em;
