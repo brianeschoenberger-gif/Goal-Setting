@@ -76,6 +76,34 @@ main {
   letter-spacing: 0.01em;
 }
 
+.hero-actions {
+  margin-top: clamp(1rem, 3vw, 1.8rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.cta {
+  font: inherit;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.8rem 1.45rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  cursor: pointer;
+}
+
+.cta--primary {
+  color: #f6f8fa;
+  background: linear-gradient(130deg, #2d6082 0%, #15405d 100%);
+  box-shadow: 0 10px 20px rgba(24, 62, 89, 0.24);
+}
+
+.cta--ghost {
+  color: #17354a;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(17, 53, 77, 0.16);
+}
+
 .journey {
   padding-top: clamp(0.4rem, 3vw, 1.6rem);
   padding-bottom: clamp(5rem, 12vw, 10rem);
@@ -103,6 +131,92 @@ main {
   background: linear-gradient(130deg, #d6e4e8 0%, #7f9eac 35%, #cfb188 100%);
   box-shadow: 0 26px 60px rgba(65, 74, 82, 0.26);
   will-change: transform, opacity, filter;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.68);
+  box-shadow: 0 12px 28px rgba(28, 36, 43, 0.22);
+}
+
+.orb--sunrise {
+  width: clamp(180px, 31vw, 340px);
+  height: clamp(180px, 31vw, 340px);
+  top: 7%;
+  right: 16%;
+  background: radial-gradient(circle at 62% 34%, rgba(255, 212, 156, 0.95), rgba(105, 143, 154, 0.6) 75%);
+}
+
+.orb--horizon {
+  width: clamp(180px, 31vw, 330px);
+  height: clamp(160px, 26vw, 280px);
+  top: 15%;
+  right: -2%;
+  background: radial-gradient(circle at 58% 28%, rgba(255, 203, 132, 0.88), rgba(88, 118, 129, 0.65) 78%);
+}
+
+.floating-panel {
+  position: absolute;
+  z-index: 3;
+  background: rgba(253, 252, 249, 0.93);
+  border-radius: 1.4rem;
+  border: 1px solid rgba(123, 111, 93, 0.24);
+  box-shadow: 0 12px 28px rgba(61, 54, 39, 0.16);
+  padding: 0.8rem 1rem;
+  color: #2a3441;
+}
+
+.floating-panel h3,
+.floating-panel p {
+  margin: 0 0 0.35rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+}
+
+.floating-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.28rem;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+}
+
+.floating-panel li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.goals-card {
+  top: 43%;
+  right: 25%;
+  width: min(250px, 36%);
+}
+
+.week-card {
+  top: 39%;
+  right: 5%;
+  width: min(240px, 33%);
+}
+
+.focus-card {
+  right: 9%;
+  bottom: 8%;
+  border-radius: 999px;
+  padding: 0.7rem 1.25rem;
+  background: linear-gradient(130deg, rgba(209, 170, 95, 0.95), rgba(183, 143, 67, 0.9));
+  color: #fff;
+}
+
+.focus-card p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.focus-card strong {
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
 }
 
 
@@ -175,6 +289,23 @@ main {
     min-height: 620px;
   }
 
+  .goals-card {
+    top: 45%;
+    right: 16%;
+    width: min(260px, 48%);
+  }
+
+  .week-card {
+    top: 67%;
+    right: 10%;
+    width: min(260px, 45%);
+  }
+
+  .focus-card {
+    right: 8%;
+    bottom: 5%;
+  }
+
   .content-panel {
     inset: 38% 6% 8%;
     grid-template-columns: 1fr;
@@ -189,7 +320,9 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .journey-stage,
-  .morph-layer {
+  .morph-layer,
+  .floating-panel,
+  .orb {
     animation: none;
     transition: none;
     transform: none;
